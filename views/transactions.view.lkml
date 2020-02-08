@@ -9,6 +9,7 @@ view: transactions {
   }
 
   dimension: amount {
+    hidden: yes
     type: number
     sql: ${TABLE}.amount ;;
   }
@@ -92,8 +93,9 @@ view: transactions {
   }
 
   measure: total_out {
+    description: "Absolute value"
     type: sum
-    sql: ${amount} ;;
+    sql: ABS(${amount}) ;;
     filters: {
       field: amount
       value: "<0"
