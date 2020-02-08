@@ -1,6 +1,6 @@
 project_name: "atb_hackathon"
 
-application: my-great-extension {
-  label: "My Great Extension"
+application: testextension {
+  label: "Test Extension"
   file: "bundle.js"
 }
