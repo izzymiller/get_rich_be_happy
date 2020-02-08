@@ -10,16 +10,13 @@ datagroup: atb_hackathon_default_datagroup {
 
 persist_with: atb_hackathon_default_datagroup
 
-explore: accounts {}
-
 explore: products {}
-
-explore: transactions {}
 
 explore: banking {
   view_name: transactions
 
   join: accounts {
-
+    relationship: many_to_one
+    sql_on: ${accounts.id} = ${transactions.this_account}  ;;
   }
 }
