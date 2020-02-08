@@ -16,7 +16,14 @@ explore: banking {
   view_name: transactions
 
   join: accounts {
+    type: left_outer
     relationship: many_to_one
     sql_on: ${accounts.id} = ${transactions.this_account}  ;;
+  }
+
+  join: products {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${products.name} = ${accounts.label} ;;
   }
 }

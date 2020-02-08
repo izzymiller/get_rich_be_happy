@@ -61,9 +61,18 @@ view: transactions {
     sql: ${TABLE}.type ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [id]
+  dimension: in_or_out {
+    type: string
+    case: {
+      when: {
+        label: "In"
+        sql: ${amount} >= 0 ;;
+      }
+      when: {
+        label: "Out"
+        sql: ${amount} < 0 ;;
+      }
+    }
   }
 
   measure: total_amount {
@@ -71,6 +80,24 @@ view: transactions {
     type: sum
     sql: ${amount} ;;
     drill_fields: [id,completed_time,amount]
+  }
+
+  measure: total_in {
+    type: sum
+    sql: ${amount} ;;
+    filters: {
+      field: amount
+      value: ">0"
+    }
+  }
+
+  measure: total_out {
+    type: sum
+    sql: ${amount} ;;
+    filters: {
+      field: amount
+      value: "<0"
+    }
   }
 
   measure: average_transaction {
