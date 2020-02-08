@@ -15,3 +15,11 @@ explore: accounts {}
 explore: products {}
 
 explore: transactions {}
+
+explore: banking {
+  view_name: transactions
+
+  join: accounts {
+
+  }
+}

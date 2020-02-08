@@ -3,17 +3,20 @@ view: accounts {
   drill_fields: [id]
 
   dimension: id {
+    description: "Account ID"
     primary_key: yes
     type: string
     sql: ${TABLE}.id ;;
   }
 
   dimension: bank_id {
+    description: "Bank ID"
     type: string
     sql: ${TABLE}.bank_id ;;
   }
 
   dimension: label {
+    label: "Name"
     type: string
     sql: ${TABLE}.label ;;
   }

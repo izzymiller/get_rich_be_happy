@@ -65,4 +65,18 @@ view: transactions {
     type: count
     drill_fields: [id]
   }
+
+  measure: total_amount {
+    description: "Sum of transaction values"
+    type: sum
+    sql: ${amount} ;;
+    drill_fields: [id,completed_time,amount]
+  }
+
+  measure: average_transaction {
+    type: average
+    sql: ${amount} ;;
+  }
+
+
 }
