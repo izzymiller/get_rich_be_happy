@@ -15,6 +15,7 @@ explore: products {}
 
 explore: banking {
   view_name: transactions
+  sql_always_where: ${accounts.customer_id} IS NOT NULL ;;
 
   join: accounts {
     type: left_outer
@@ -26,5 +27,11 @@ explore: banking {
     type: left_outer
     relationship: many_to_one
     sql_on: ${products.name} = ${accounts.label} ;;
+  }
+
+  join: customers {
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${customers.customer_id} = ${accounts.customer_id} ;;
   }
 }
