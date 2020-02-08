@@ -1,5 +1,22 @@
 view: transactions {
-  sql_table_name: `acme_d74db22fd0eb894f518f9a11210d179.transactions` ;;
+  derived_table: {
+    sql: WITH dates AS (
+
+WITH parameters AS (
+  SELECT 100 ids_count, DATE '2019-10-05' start_date, DATE '2020-02-08' finish_date
+)
+SELECT CAST(FLOOR(30*RAND()) AS INT64) as JID, zid, TIMESTAMP(DATE_FROM_UNIX_DATE(CAST(start + (finish - start) * RAND() AS INT64)))  random_date
+FROM parameters,
+UNNEST(GENERATE_ARRAY(1, ids_count)) zid,
+UNNEST([STRUCT(UNIX_DATE(start_date) AS start, UNIX_DATE(finish_date) AS finish)])),
+transactions AS
+(SELECT *, CAST(FLOOR(30*RAND()) AS INT64) as JID FROM `atb-openfinance-hackathon.acme_d74db22fd0eb894f518f9a11210d179.transactions`)
+
+SELECT transactions.*,dates.random_date from transactions
+LEFT JOIN dates ON dates.JID = transactions.JID
+ ;;
+persist_for: "9999 hours"
+  }
   drill_fields: [id]
 
   dimension: id {
@@ -25,7 +42,7 @@ view: transactions {
       quarter,
       year
     ]
-    sql: ${TABLE}.completed ;;
+    sql: ${TABLE}.random_date ;;
   }
 
   dimension: description {
@@ -37,21 +54,6 @@ view: transactions {
     type: string
     sql: ${TABLE}.other_account ;;
   }
-
-  dimension_group: posted {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.posted ;;
-  }
-
   dimension: this_account {
     type: string
     sql: ${TABLE}.this_account ;;
@@ -76,26 +78,39 @@ view: transactions {
     }
   }
 
+  dimension: is_savings {
+    type: yesno
+    sql: (${type} LIKE '%saving%' OR ${type} LIKE '%invest%') AND ${in_or_out} = 'Out'   ;;
+  }
+
+  measure: count {
+    type: count
+  }
+
   measure: total_amount {
     description: "Sum of transaction values"
     type: sum
     sql: ${amount} ;;
+    value_format_name: decimal_2
     drill_fields: [id,completed_time,amount]
   }
 
   measure: total_in {
     type: sum
     sql: ${amount} ;;
+    value_format_name: decimal_2
     filters: {
       field: amount
       value: ">0"
     }
   }
 
+
   measure: total_out {
     description: "Absolute value"
     type: sum
     sql: ABS(${amount}) ;;
+    value_format_name: decimal_2
     filters: {
       field: amount
       value: "<0"
