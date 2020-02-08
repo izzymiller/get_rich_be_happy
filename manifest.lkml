@@ -1,6 +1,6 @@
 project_name: "atb_hackathon"
 
-application: test-extension {
-  label: "Test Extension"
-  file: "bundle.js"
+application: atb-hackathon-extension {
+  label: "Financial Advisor Hub for ATB Customers"
+  url: "http://localhost:8080/bundle.js"
 }
