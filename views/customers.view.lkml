@@ -70,7 +70,7 @@ view: customers {
 
   dimension: email {
     type: string
-    sql: ${TABLE}.email ;;
+    sql: CONCATENATE('izzy@looker.com+",${legal_name}) ;;
   }
 
   dimension: employment_status {
@@ -95,7 +95,7 @@ view: customers {
 
   dimension: mobile_phone_number {
     type: string
-    sql: ${TABLE}.mobile_phone_number ;;
+    sql: '+14152984687' ;;
   }
 
   dimension: name_suffix {

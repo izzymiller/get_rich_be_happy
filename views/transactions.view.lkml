@@ -91,14 +91,14 @@ persist_for: "9999 hours"
     description: "Sum of transaction values"
     type: sum
     sql: ${amount} ;;
-    value_format_name: decimal_2
+    value_format_name: usd
     drill_fields: [id,completed_time,amount]
   }
 
   measure: total_in {
     type: sum
     sql: ${amount} ;;
-    value_format_name: decimal_2
+    value_format_name: usd
     filters: {
       field: amount
       value: ">0"
@@ -110,7 +110,7 @@ persist_for: "9999 hours"
     description: "Absolute value"
     type: sum
     sql: ABS(${amount}) ;;
-    value_format_name: decimal_2
+    value_format_name: usd
     filters: {
       field: amount
       value: "<0"
