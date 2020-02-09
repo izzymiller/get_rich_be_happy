@@ -40,6 +40,7 @@ view: transactions {
   }
   dimension: this_account {
     type: string
+    html: 🎁<br /><small>{{linked_value}}</small> ;;
     sql: ${TABLE}.this_account ;;
     tags: ["atb-hackathon"]
   }
