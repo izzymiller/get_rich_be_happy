@@ -1,22 +1,5 @@
 view: transactions {
-  derived_table: {
-    sql: WITH dates AS (
-
-WITH parameters AS (
-  SELECT 100 ids_count, DATE '2019-10-05' start_date, DATE '2020-02-08' finish_date
-)
-SELECT CAST(FLOOR(30*RAND()) AS INT64) as JID, zid, TIMESTAMP(DATE_FROM_UNIX_DATE(CAST(start + (finish - start) * RAND() AS INT64)))  random_date
-FROM parameters,
-UNNEST(GENERATE_ARRAY(1, ids_count)) zid,
-UNNEST([STRUCT(UNIX_DATE(start_date) AS start, UNIX_DATE(finish_date) AS finish)])),
-transactions AS
-(SELECT *, CAST(FLOOR(30*RAND()) AS INT64) as JID FROM `atb-openfinance-hackathon.acme_d74db22fd0eb894f518f9a11210d179.transactions`)
-
-SELECT transactions.*,dates.random_date from transactions
-LEFT JOIN dates ON dates.JID = transactions.JID
- ;;
-persist_for: "9999 hours"
-  }
+  sql_table_name: transactions_dates ;;
   drill_fields: [id]
 
   dimension: id {
