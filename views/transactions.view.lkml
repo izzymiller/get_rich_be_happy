@@ -26,6 +26,7 @@ view: transactions {
       year
     ]
     sql: ${TABLE}.random_date ;;
+    drill_fields: [this_account]
   }
 
   dimension: description {
