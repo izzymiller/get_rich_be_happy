@@ -40,6 +40,7 @@ view: transactions {
   dimension: this_account {
     type: string
     sql: ${TABLE}.this_account ;;
+    tags: ["atb-hackathon"]
   }
 
   dimension: type {
