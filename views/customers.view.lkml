@@ -98,7 +98,6 @@ view: customers {
   dimension: legal_name {
     type: string
     sql: ${TABLE}.legal_name ;;
-    tags: ["atb-hackathon"]
   }
 
   dimension: mobile_phone_number {
