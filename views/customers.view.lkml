@@ -8,6 +8,13 @@ view: customers {
     sql: ${TABLE}.customer_id ;;
   }
 
+  dimension: outreach {
+    type: string
+    html: 💬Send a Text ;;
+    tags: ["phone"]
+    sql: ${mobile_phone_number} ;;
+  }
+
   dimension: bank_id {
     type: string
     sql: ${TABLE}.bank_id ;;

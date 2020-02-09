@@ -85,6 +85,7 @@ persist_for: "9999 hours"
 
   measure: count {
     type: count
+    drill_fields: [id,completed_time,type,description,total_amount]
   }
 
   measure: total_amount {
@@ -92,7 +93,7 @@ persist_for: "9999 hours"
     type: sum
     sql: ${amount} ;;
     value_format_name: usd
-    drill_fields: [id,completed_time,amount]
+    drill_fields: [id,completed_time,type,description,total_amount]
   }
 
   measure: total_in {
@@ -103,6 +104,8 @@ persist_for: "9999 hours"
       field: amount
       value: ">0"
     }
+    drill_fields: [id,completed_time,type,description,total_amount]
+
   }
 
 
@@ -115,11 +118,14 @@ persist_for: "9999 hours"
       field: amount
       value: "<0"
     }
+    drill_fields: [id,completed_time,type,description,total_amount]
+
   }
 
   measure: average_transaction {
     type: average
     sql: ${amount} ;;
+    drill_fields: [id,completed_time,type,description,total_amount]
   }
 
 
