@@ -10,7 +10,7 @@ view: customers {
 
   dimension: outreach {
     type: string
-    html: 💬Send a Text ;;
+    html: 💬Send a Message ;;
     tags: ["phone"]
     sql: ${mobile_phone_number} ;;
   }
